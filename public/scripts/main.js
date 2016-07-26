@@ -24,25 +24,14 @@ function shuffle(o){
 }
 
 function main() {
-	//while (1) {
-		/*$.get('/fetch?num=1', (data) => {
-			alert(data);
-			let $answerBox = $("#answer");
-			answerBox.keydown((e) => {
-				if (e.which === 13) {
-					e.preventDefault();
-				}
-				let word = answerBox.val();
-			});
-		});*/
-	//}
 
 	init().then(([dict, questions, answers]) => {
 		//console.log(dict['abnormal']);
 		let pool = [];
 		for (let ques in answers)
 			pool.push(ques);
-		//arr = shuffle(arr);
+		pool = shuffle(pool);
+
 		let $questionBox = $('#questionBox');
 		let $answerBox = $('#answerBox');
 		let current = 0;
@@ -68,6 +57,13 @@ function main() {
 				}
 				$answerBox.val('');
 			}
+		});
+
+
+		let $lookupButton = $('#lookupButton');
+		$lookupButton.click(() => {
+			let originHtml = $questionBox.html();
+			$questionBox.html(originHtml + '<hr>' + answers[ques]);
 		});
 	});
 }
