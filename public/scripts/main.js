@@ -23,6 +23,11 @@ function shuffle(o){
     return o;
 }
 
+function fadeout() {
+	let $statusBar = $('#statusBar');
+	$statusBar.fadeOut(1500);
+}
+
 function main() {
 
 	init().then(([dict, questions, answers]) => {
@@ -32,11 +37,34 @@ function main() {
 			pool.push(ques);
 		pool = shuffle(pool);
 
+		let $progress = $('#progress');
+		$progress.html(`0 / ${pool.length}`);
+
+		let $queryResult = $('#queryResult');
+
 		let $questionBox = $('#questionBox');
 		let $answerBox = $('#answerBox');
+		let $statusBar = $('#statusBar');
 		let current = 0;
 		let ques = pool[current];
 		$questionBox.html(ques);
+
+		/*
+		 * 当按下Ctrl+C时，自动搜索相关内容
+		 */
+		$(document).bind('copy', (e) => {
+			let str = window.getSelection().toString();
+			str = str.trim();
+			console.log(str);
+			result = '';
+			for (let name in dict) {
+				if (name.indexOf(str) >= 0) {
+					result += '<hr>' + (name + ' ' + dict[name]);
+				}
+			}
+			if (result.length < 2) result = 'None';
+			$queryResult.html(result);
+		});
 
 		$answerBox.keyup((e) => {
 			if (e.which === 13) {
@@ -47,7 +75,13 @@ function main() {
 			console.log(word);
 
 			if (word === answers[ques]) {
-				console.log('Correct');
+				$statusBar.html("Correct!");
+				$statusBar.removeClass("show");
+				$statusBar.fadeIn(1000);
+				setTimeout(fadeout, 3000);
+
+				$progress.html(`${current + 1} / ${pool.length}`);
+
 				if (current < pool.length) {
 					current++;
 					ques = pool[current];

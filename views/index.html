@@ -3,12 +3,15 @@
 {% block title %}Remember Words{% endblock %}
 
 {% block content %}
+  <div id="progress"></div>
   <div class="question well" id="questionBox">
   </div>
   <form>
     <textarea placeholder="..." name="answer" id="answerBox"></textarea>
   </form>
-  <button id="lookupButton" name="lookup">Forgot</button>
+  <button class="button blue" id="lookupButton" name="lookup">Forgot</button>
+  <div id="statusBar"></div>
+  <div id="queryResult" class="well"></div>
 {% endblock %}
 
 {% block scripts %}
