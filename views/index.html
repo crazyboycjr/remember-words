@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}Remember Words{% endblock %}
+
+{% block content %}
+  <div class="question well" id="questionBox">
+  </div>
+  <form>
+    <textarea placeholder="..." name="answer" id="answerBox"></textarea>
+  </form>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="/scripts/main.js"></script>
+{% endblock %}
