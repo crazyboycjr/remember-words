@@ -95,3 +95,15 @@ textarea {
 #progress {
 	float: left;
 }
+
+#queryResult {
+	margin-top: 20px;
+	margin-right: 30px;
+	float: right;
+}
+
+#forgotPool {
+	margin-top: 20px;
+	margin-left:  40px;
+	float: left;
+}

@@ -40,7 +40,8 @@ function main() {
 		let $progress = $('#progress');
 		$progress.html(`0 / ${pool.length}`);
 
-		let $queryResult = $('#queryResult');
+		let $queryResult = $('#queryResult div');
+		let $forgotPool = $('#forgotPool');
 
 		let $questionBox = $('#questionBox');
 		let $answerBox = $('#answerBox');
@@ -93,11 +94,16 @@ function main() {
 			}
 		});
 
-
+		/*
+		 * Forgot 按下之后的操作
+		 */
 		let $lookupButton = $('#lookupButton');
 		$lookupButton.click(() => {
 			let originHtml = $questionBox.html();
 			$questionBox.html(originHtml + '<hr>' + answers[ques]);
+
+			originHtml = $forgotPool.html();
+			$forgotPool.html(originHtml + '<hr>' + ques + ' ' + answers[ques]);
 		});
 	});
 }
