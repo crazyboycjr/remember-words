@@ -17,6 +17,8 @@ app.use(logger());
 app.use(route.get('/', controller.home));
 app.use(route.get('/index.html', controller.home));
 app.use(route.get('/fetch', controller.fetch));
+app.use(route.get('/forgotwords', controller.sendforgot));
+app.use(route.post('/forgotwords', controller.receiveforgot));
 
 // Serve static files
 app.use(serve(path.join(__dirname, 'public')));

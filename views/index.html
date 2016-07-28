@@ -12,7 +12,13 @@
   <button class="button blue" id="lookupButton" name="lookup">Forgot</button>
   <div id="statusBar"></div>
   <div id="queryResult" class="well"><b>Query results</b><div></div></div>
-  <div id="forgotPool" class="well"><b>Words not familiar</b></div>
+  <div id="forgotPool" class="well">
+	  <b>Words not familiar</b>
+      {% for word in forgotWords %}
+	    <hr>
+		{{ word }} {{ dict[word] }}
+	  {% endfor %}
+  </div>
 {% endblock %}
 
 {% block scripts %}

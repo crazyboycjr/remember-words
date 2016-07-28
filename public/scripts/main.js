@@ -4,6 +4,7 @@ function init() {
 	return new Promise((resolve, reject) => {
 		$.get('/fetch', (data) => {
 			let lines = data.split('\n');
+			lines.pop();
 			let dict = {};
 			let answers = {}, questions = {};
 			for (let line of lines) {
@@ -32,6 +33,9 @@ function main() {
 
 	init().then(([dict, questions, answers]) => {
 		//console.log(dict['abnormal']);
+		/*
+		 * 生成问题
+		 */
 		let pool = [];
 		for (let ques in answers)
 			pool.push(ques);
@@ -83,7 +87,7 @@ function main() {
 
 				$progress.html(`${current + 1} / ${pool.length}`);
 
-				if (current < pool.length) {
+				if (current < pool.length - 1) {
 					current++;
 					ques = pool[current];
 					$questionBox.html(ques);
@@ -97,13 +101,25 @@ function main() {
 		/*
 		 * Forgot 按下之后的操作
 		 */
+		let forgotWords = new Set();
+		let forgotWordsBuffer = new Array();
 		let $lookupButton = $('#lookupButton');
 		$lookupButton.click(() => {
 			let originHtml = $questionBox.html();
 			$questionBox.html(originHtml + '<hr>' + answers[ques]);
 
-			originHtml = $forgotPool.html();
-			$forgotPool.html(originHtml + '<hr>' + ques + ' ' + answers[ques]);
+			let ans = answers[ques];
+			if (!forgotWords.has(ans)) {
+				forgotWords.add(ans);
+				originHtml = $forgotPool.html();
+				$forgotPool.html(originHtml + '<hr>' + ques + ' ' + ans);
+				
+				forgotWordsBuffer.push(ans);
+				$.post('/forgotwords', { 'contents': forgotWordsBuffer }, () => {
+					while (forgotWordsBuffer.length() > 0)
+						forgotWordsBuffer.pop();
+				});
+			}
 		});
 	});
 }

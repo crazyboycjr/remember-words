@@ -119,8 +119,7 @@ alcohol|n.酒精
 algebra|n. 代数学
 alike|ad.同样地
 alive|a. 活着的,存在的 
-all|ad.全部地a.全(部);所有的;总;整
-|pron.全部;全体人员
+all|ad.全部地a.全(部);所有的;总;整；pron.全部;全体人员
 allergic|a. 对…过敏的；对…极讨厌的
 alley|n.胡同,小道
 allocate|v.分配,分派
